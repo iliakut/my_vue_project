@@ -67,6 +67,39 @@
       >
     </div>
 
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text">Возраст</span>
+      </div>
+      <input
+        v-model="userToChange.age"
+        type="text"
+        class="form-control mr-sm-2"
+      >
+    </div>
+
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text">Компания</span>
+      </div>
+      <input
+        v-model="userToChange.company"
+        type="text"
+        class="form-control mr-sm-2"
+      >
+    </div>
+
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text">О себе</span>
+      </div>
+      <input
+        v-model="userToChange.about"
+        type="text"
+        class="form-control mr-sm-2"
+      >
+    </div>
+
     <pre>{{ userToChange }}</pre>
   </div>
 
@@ -81,22 +114,25 @@ export default {
       required: true
     }
   },
+
   data: function() {
     return {
       userToChange: null
     }
   },
+
   watch: {
     userToChange: {
       deep: true,
-      updateUser() {
-        this.$emit('input', this.userToChange)
+      handler: function() {
+        this.$emit('sendInput', this.userToChange)
       }
     }
   },
-    created: function() {
-  	this.userToChange = Object.assign({}, this.user)
-    }
+
+  created: function() {
+    this.userToChange = Object.assign({}, this.user)
+  }
 }
 </script>
 

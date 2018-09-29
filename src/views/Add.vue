@@ -2,12 +2,23 @@
   <div>
     <h1>Добавить пользователя</h1>
     <user-form
-      :user="user"/>
+      :user="user"
+      @sendInput="currUser => user = currUser"/>
+    <div>
+      <button
+        type="button"
+        class="btn btn-dark"
+        @click="save"
+      >
+        Создать
+      </button>
+    </div>
   </div>
 </template>
 
 <script>
 import UserForm from '@/components/UserForm.vue'
+import axios from 'axios'
 
 const userTemplate = {
   id: 0,
@@ -33,7 +44,16 @@ export default {
   },
   data: function() {
     return {
-      user: userTemplate
+      user: userTemplate,
+      url: 'http://localhost:3004/users/',
+      test: 0
+    }
+  },
+  methods: {
+    save: function() {
+      axios.post(this.url, this.user).then(() => {
+        this.$router.push({ path: '/users' })
+      })
     }
   }
 }
